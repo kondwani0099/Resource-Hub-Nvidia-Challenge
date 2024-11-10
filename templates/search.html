@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Engine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .search-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .search-btn:hover {
+            background-color: #45a049;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .result-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .result-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .result-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .image-result img {
+            width: 200px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Search Engine</h1>
+    <input type="text" id="query" class="input-field" placeholder="Enter your search query...">
+    <button class="search-btn" onclick="search()">Search</button>
+    
+    <div class="results" id="results"></div>
+</div>
+
+<script>
+    async function search() {
+        const query = document.getElementById('query').value;
+        
+        if (!query) {
+            alert('Please enter a query');
+            return;
+        }
+
+        const response = await fetch('/search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ query: query })
+        });
+
+        const data = await response.json();
+
+        if (data.error) {
+            alert(data.error);
+            return;
+        }
+
+        displayResults(data);
+    }
+
+    function displayResults(data) {
+        const resultsContainer = document.getElementById('results');
+        resultsContainer.innerHTML = '';
+
+        // Google Search Results
+        if (data.google_results && data.google_results.items && data.google_results.items.length > 0) {
+            resultsContainer.innerHTML += '<h3>Google Search Results:</h3>';
+            data.google_results.items.forEach(item => {
+                resultsContainer.innerHTML += `
+                    <div class="result-item">
+                        <div class="result-title">${item.title}</div>
+                        <a href="${item.link}" class="result-link" target="_blank">${item.link}</a>
+                    </div>
+                `;
+            });
+        }
+
+        // Google Image Search Results
+        if (data.google_images && data.google_images.items && data.google_images.items.length > 0) {
+            resultsContainer.innerHTML += '<h3>Google Image Search Results:</h3>';
+            data.google_images.items.forEach(item => {
+                resultsContainer.innerHTML += `
+                    <div class="result-item image-result">
+                        <img src="${item.link}" alt="${item.title}">
+                    </div>
+                `;
+            });
+        }
+
+        // YouTube Search Results
+        if (data.youtube_results && data.youtube_results.items && data.youtube_results.items.length > 0) {
+            resultsContainer.innerHTML += '<h3>YouTube Search Results:</h3>';
+            data.youtube_results.items.forEach(item => {
+                resultsContainer.innerHTML += `
+                    <div class="result-item">
+                        <div class="result-title">${item.snippet.title}</div>
+                        <a href="https://www.youtube.com/watch?v=${item.id.videoId}" class="result-link" target="_blank">Watch Video</a>
+                    </div>
+                `;
+            });
+        }
+    }
+</script>
+
+</body>
+</html>

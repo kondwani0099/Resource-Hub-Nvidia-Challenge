@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webcam Capture</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+    video, canvas {
+      display: block;
+      margin: 10px auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Webcam video stream -->
+  <video id="video" width="640" height="480" autoplay></video>
+  <!-- Canvas to capture snapshots -->
+  <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+
+    // Request access to the user's webcam
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        video.srcObject = stream;
+      })
+      .catch(err => {
+        console.error("Error accessing webcam: ", err);
+      });
+
+    // Capture image every 5 seconds and send to Flask backend
+    setInterval(() => {
+      // Draw video frame to canvas
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      // Convert canvas to base64-encoded image
+      const imageData = canvas.toDataURL('image/jpeg');
+
+      // Send the image to the backend
+      fetch('http://127.0.0.1:5000/upload_image', {  // Change this to your server URL
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ image: imageData })
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("Image uploaded successfully:", data);
+      })
+      .catch(err => {
+        console.error("Error uploading image:", err);
+      });
+
+    }, 5000); // 5000 milliseconds = 5 seconds
+  </script>
+
+</body>
+</html>

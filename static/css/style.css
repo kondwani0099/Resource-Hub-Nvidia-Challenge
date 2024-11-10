@@ -1,0 +1,122 @@
+.chatbot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 2000;
+    display: none;
+  }
+  .chatbot-header {
+    background-color: #3b82f6;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .custom-height {
+    height: 300px;
+}
+  video, canvas {
+    display: block;
+    margin: 10px auto;
+  }
+
+
+   /* Container styling */
+   .emotion-detection {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    height: 200px;
+    width: 200px; /* Slightly wider than video width for padding */
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: move;
+    color: #fff;
+    text-align: center;
+    z-index: 1000; /* Ensures it's on top */
+}
+.emotion-detectionnn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  cursor: move;
+  height: 200px;
+  width: 340px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Title styling */
+.emotion-detection h2 {
+    font-size: 18px;
+    margin: 0 0 10px 0;
+    color: #fff;
+}
+
+/* Video styling */
+.emotion-detection video {
+    border-radius: 4px;
+    width: 100%;
+    /* height: auto; */
+    height: 100;
+}
+
+ /* Basic styling for popup */
+ .emotion-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.emotion-popup .popup-content {
+  background-color: #fff;
+  padding: 20px;
+  width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.emotion-popup h2 {
+  margin: 0 0 10px;
+  font-size: 24px;
+  color: #333;
+}
+
+.emotion-popup .close-btn {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.emotion-popup.hidden {
+  display: none;
+}
+
+.emotion-popup .response-item {
+  margin: 8px 0;
+  font-size: 16px;
+  color: #555;
+}

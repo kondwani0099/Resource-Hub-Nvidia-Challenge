@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Flexbox Layout with Chatbot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+   <!-- Link to the chatbot.js script in the static folder -->
+   <script src="{{ url_for('static', filename='chatbot.js') }}" defer></script>
+    <!-- Link to the chatbot.js script in the static folder -->
+  <script src="{{ url_for('static', filename='emotions.js') }}" defer></script>
+   <!-- Link to the chatbot.js script in the static folder -->
+   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+   
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <!-- Container stretching to full height -->
+  <div class="container mx-auto p-2 flex-1 flex flex-col">
+    <!-- Main Content using Flexbox -->
+    <div class="flex flex-wrap gap-2 flex-1">
+
+      <!-- Sidebar (Library Section) -->
+      <div class="w-full lg:w-1/6 bg-white p-4 shadow-md flex flex-col">
+        <h3 class="text-lg font-semibold mb-4">Library</h3>
+      
+        <!-- Search Input -->
+        <input 
+          type="text" 
+          id="searchBox" 
+          class="border border-gray-300 p-2 w-full mb-4" 
+          placeholder="Search for books..." 
+          oninput="searchBooks()"
+        />
+      
+        <!-- Book List -->
+        <ul id="bookList" class="space-y-2">
+          <li class="bg-gray-200 p-2">The IoT System.pdf</li>
+          <li class="bg-gray-200 p-2">AI in Healthcare.pdf</li>
+          <li class="bg-gray-200 p-2">Embedded Systems.pdf</li>
+          <li class="bg-gray-200 p-2">Machine Learning.pdf</li>
+        </ul>
+      
+        <!-- Upload Section -->
+        <div class="mt-4">
+          <h4 class="text-lg font-semibold mb-2">Upload Other Files</h4>
+          <input 
+            type="file" 
+            id="fileUpload" 
+            class="border border-gray-300 p-2 w-full mb-2" 
+            accept=".pdf" 
+            onchange="uploadFile()"
+          />
+          <button class="bg-blue-500 text-white px-4 py-2 w-full" onclick="uploadFile()">Upload</button>
+        </div>
+      
+        <!-- Uploaded PDFs List -->
+        <h4 class="text-lg font-semibold mt-4">Uploaded PDFs</h4>
+        <ul id="uploadedList" class="space-y-2">
+          
+          <!-- Uploaded files will be shown here -->
+        </ul>
+      </div>
+      
+      <script src="{{ url_for('static', filename='books.js') }}" defer></script>
+     
+
+       <!-- Canvas to capture snapshots -->
+  <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+
+      
+
+      <!-- Main Content Area -->
+      <div class="w-full lg:w-3/5 bg-white p-4 shadow-md">
+        <h3 class="text-lg font-semibold mb-2">Your PDF Reads</h3>
+        
+        <!-- Embedded PDF -->
+        <!-- Embedded PDF Viewer -->
+ <!-- Embedded PDF Viewer -->
+<div class="w-full bg-gray-200 p-4 mb-4">
+  <embed id="pdfViewer" src="" type="application/pdf" width="100%" height="470px"/>
+</div>
+        <!-- Chatbot Button -->
+        <button class="bg-blue-500 text-white px-4 py-2" onclick="toggleChatbot()">Open Chatbot</button>
+
+      </div>
+
+      <!-- Links Section (Collapsible on smaller screens) -->
+      <div class="w-full lg:w-1/5 bg-white p-4 shadow-md">
+        <div id="links" class="block lg:hidden">
+          <button class="bg-blue-500 text-white px-4 py-2 w-full" onclick="toggleMenu()">Menu</button>
+        </div>
+        
+        <div id="linkItems" class="lg:block hidden">
+          <h3 class="text-lg font-semibold mb-2">Links</h3>
+          
+          <div class="space-y-4">
+      
+            <!-- URLs Section -->
+            <div class="bg-gray-200 p-4">
+              <h4 class="font-semibold mb-2">Urls</h4>
+              <ul class="list-disc pl-4">
+                <li><a href="https://www.github.com/kondwani0099" class="text-blue-600 hover:underline" target="_blank">GitHub</a></li>
+                <li><a href="https://www.lapansiindustries.com/liacdademy/index.html" class="text-blue-600 hover:underline" target="_blank">Li-Academy 3D math </a></li>
+                <li><a href="https://www.lapansiindustries.com/liacdademy/index.html" class="text-blue-600 hover:underline" target="_blank">Li-Academy 2D math </a></li>
+            </ul>
+            </div>
+      
+            <!-- Images Section -->
+            <div class="bg-gray-200 p-4">
+              <h4 class="font-semibold mb-2">Images</h4>
+              <div class="grid grid-cols-2 gap-2">
+                <img src="https://www.undp.org/sites/g/files/zskgke326/files/styles/scaled_image_large/public/2024-02/ghlhxouw0aay72o.jpeg?itok=PZcPm1HU" alt="Placeholder" class="rounded shadow-md">
+                <img src="https://www.undp.org/sites/g/files/zskgke326/files/styles/scaled_image_large/public/2024-02/ghlhxouw0aay72o.jpeg?itok=PZcPm1HU" alt="Placeholder" class="rounded shadow-md">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzbdy75qCPqxvUjBn_lnJ9yTDT_NbTTY7Dsg&s" alt="Placeholder" class="rounded shadow-md">
+                <img src="https://www.digi.com/getattachment/Blog/post/The-4-Stages-of-IoT-Architecture/digi-emerging-architecture-business-drivers-web-SCADA-1280.png?lang=en-US" alt="Placeholder" class="rounded shadow-md">
+            </div>
+            </div>
+      
+            <!-- Videos Section (3 Frames) -->
+            <div class="bg-gray-200 p-4">
+              <h4 class="font-semibold mb-2">Videos</h4>
+              <div class="grid grid-cols-2 gap-4">
+                <!-- Video 1 -->
+                <div class="aspect-w-16 aspect-h-9">
+                  <iframe src="https://www.youtube.com/embed/kKsOzPhIPko&ab_channel=LuxuryZone" frameborder="0" class="w-full h-full rounded" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+                <!-- Video 2 -->
+                <div class="aspect-w-16 aspect-h-9">
+                  <iframe src="https://www.youtube.com/embed/video-id-2" frameborder="0" class="w-full h-full rounded" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+                <!-- Video 3 -->
+                <div class="aspect-w-16 aspect-h-9">
+                  <iframe src="https://www.youtube.com/embed/video-id-3" frameborder="0" class="w-full h-full rounded" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+              </div>
+            </div>
+      
+          </div>
+        </div>
+      </div>
+      
+
+    </div>
+  </div>
+
+  <!-- Chatbot Popup -->
+  <!-- <div id="chatbot" class="chatbot">
+    <div class="chatbot-header">
+      <h3>Uniplexity Bot</h3>
+      <button class="text-white" onclick="toggleChatbot()">X</button>
+    </div>
+    
+
+    <div id="chat-content" class="p-4 h-64 overflow-y-auto flex flex-col space-y-2">
+    
+      <div class="bg-gray-200 p-2 rounded self-start">System: Hi there! How can I help you today?</div>
+    </div>
+    
+   
+    <div class="p-4 bg-gray-100 border-t flex items-center space-x-3">
+      <input type="text" id="userInput" class="border border-gray-300 p-2 w-full" placeholder="Type your message...">
+      <button class="bg-blue-500 text-white px-4 py-2" onclick="sendMessage()">Send</button>
+    </div>
+</div> -->
+
+
+<!-- Chatbot Popup -->
+<div id="chatbot" class="chatbot">
+  <div class="chatbot-header">
+    <h3>Uniplexity Bot</h3>
+    <button class="text-white" onclick="toggleChatbot()">X</button>
+  </div>
+
+  <!-- Chatbot Body -->
+  <div id="chat-content" class="p-4 h-64 overflow-y-auto flex flex-col space-y-2">
+    <!-- Initial System Message -->
+    <div class="bg-gray-200 p-2 rounded self-start">System: Hi there! How can I help you today?</div>
+  </div>
+
+  <!-- Chatbot Input Area -->
+  <div class="p-4 bg-gray-100 border-t flex items-center space-x-3">
+    <!-- Text Input for Questions -->
+    <input 
+      type="text" 
+      id="questionInput" 
+      class="border border-gray-300 p-2 w-full" 
+      placeholder="Type your message..."
+    />
+    <button 
+      class="bg-blue-500 text-white px-4 py-2" 
+      onclick="askQuestion()"
+    >
+      Send
+    </button>
+  </div>
+</div>
+
+<script>
+ 
+</script>
+
+
+
+
+<!-- <script>
+  function sendMessage() {
+    const userInput = document.getElementById("userInput").value;
+    const chatContent = document.getElementById("chat-content");
+
+    // Only send if input is not empty
+    if (userInput.trim() !== "") {
+      // Add user message to chat
+      const userMessage = document.createElement("div");
+      userMessage.classList.add("bg-blue-100", "p-2", "rounded", "self-end");
+      userMessage.textContent = `You: ${userInput}`;
+      chatContent.appendChild(userMessage);
+      
+      // Simulate a system response (this can be replaced with actual chatbot logic)
+      const systemMessage = document.createElement("div");
+      systemMessage.classList.add("bg-gray-200", "p-2", "rounded", "self-start");
+      systemMessage.textContent = `System: I'm here to help! You said: "${userInput}"`;
+      chatContent.appendChild(systemMessage);
+
+      // Scroll to the latest message
+      chatContent.scrollTop = chatContent.scrollHeight;
+
+      // Clear input
+      document.getElementById("userInput").value = "";
+    }
+  }
+</script> -->
+
+
+  <script>
+    // Toggle Menu
+    function toggleMenu() {
+      var linkItems = document.getElementById("linkItems");
+      if (linkItems.classList.contains("hidden")) {
+        linkItems.classList.remove("hidden");
+      } else {
+        linkItems.classList.add("hidden");
+      }
+    }
+
+    // Toggle Chatbot
+    function toggleChatbot() {
+      var chatbot = document.getElementById("chatbot");
+      if (chatbot.style.display === "none" || chatbot.style.display === "") {
+        chatbot.style.display = "block";
+      } else {
+        chatbot.style.display = "none";
+      }
+    }
+
+    // Search Books in the Library Section
+    function searchBooks() {
+      const searchQuery = document.getElementById("searchBox").value.toLowerCase();
+      const bookList = document.getElementById("bookList");
+      const books = bookList.getElementsByTagName("li");
+
+      for (let i = 0; i < books.length; i++) {
+        const book = books[i].textContent.toLowerCase();
+        if (book.includes(searchQuery)) {
+          books[i].style.display = "";
+        } else {
+          books[i].style.display = "none";
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
