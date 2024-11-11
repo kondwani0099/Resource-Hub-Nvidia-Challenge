@@ -160,12 +160,12 @@ def search():
     if not user_query:
         return jsonify({"error": "Query parameter is required"}), 400
     
-    google_api_key = "AIzaSyA4tFOYO7w5BsqWuwMOpETR4KTQ0--73JQ"
-    google_cx = "f7579997c59ad4488"
-    youtube_api_key = "AIzaSyA4tFOYO7w5BsqWuwMOpETR4KTQ0--73JQ"
-    api_key = "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"  # Example Groq API Key
-    user_query = "Best techniques for machine learning models"
-    model_id = "llama3-8b-8192"  # Example model ID from Groq
+    google_api_key = ""
+    google_cx = ""
+    youtube_api_key = ""
+    api_key = ""  # Example Groq API Key
+    user_query = "Find the links for the users query here ,{user_query}"
+    model_id = ""  # Example model ID from Groq
 
     # Call summarize and search function
     results = summarize_and_search(user_query, model_id, api_key, google_api_key, google_cx, youtube_api_key)
