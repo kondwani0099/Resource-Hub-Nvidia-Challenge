@@ -35,10 +35,6 @@ Welcome to the **Resource Hub**, an all-in-one platform designed to enhance your
 - **Automated Resource Collection**: Use web scraping to gather articles, images, videos, and other resources from the web, which are automatically added to your library.
 - **Search External Content**: Find relevant external resources (articles, PDFs, and videos) on a given topic and integrate them into your personal library.
 
-### Credit System 💳
-- **Credits**: Start with 100 free credits, which are used for advanced features like thesis generation and plagiarism reports.
-- **Payment**: Easily purchase more credits when needed.
-
 ### Interactive Chatbot 🤖
 - **AI Tutor & Assistant**: Ask questions, get answers, and receive personalized feedback on your learning progress.
 
